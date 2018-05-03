@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM centos
 MAINTAINER Xin Wen <nclxwen@gmail.com>
 RUN apt-get update && \
     apt-get install -y curl && \
