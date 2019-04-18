@@ -1,7 +1,7 @@
 FROM ubuntu:trusty
 MAINTAINER Xin Wen <nclxwen@gmail.com>
 
-RUN apt-get update && apt-get install -y wget curl jq vim python x11vnc xvfb
+RUN apt-get update && apt-get install -y wget curl vim python x11vnc xvfb
 RUN wget -O- http://neuro.debian.net/lists/trusty.cn-zj.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
 RUN sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
 RUN sudo apt-get update
