@@ -1,18 +1,25 @@
 FROM ubuntu:trusty
 MAINTAINER Xin Wen <nclxwen@gmail.com>
 
-RUN apt-get update && apt-get install -y wget curl vim python x11vnc xvfb
+RUN apt-get update && apt-get install -y wget curl vim python 
 RUN wget -O- http://neuro.debian.net/lists/trusty.cn-zj.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
 RUN sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
 RUN sudo apt-get update
 RUN apt-get install -y fsl-complete
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN     mkdir ~/.vnc
-# Setup a password
-RUN     x11vnc -storepasswd xwen ~/.vnc/passwd
-# Autostart fsl (might not be the best way to do it, but it does the trick)
-RUN     bash -c 'echo "fsl" >> /.bashrc'
+
+
+RUN export uid=xwen gid=xwen && \
+    mkdir -p /home/developer && \
+    echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
+    echo "developer:x:${uid}:" >> /etc/group && \
+    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
+    chmod 0440 /etc/sudoers.d/developer && \
+    chown ${uid}:${gid} -R /home/developer
+
+
+
 # Configure environment
 ENV FSLDIR=/usr/share/fsl/5.0
 ENV FSLOUTPUTTYPE=NIFTI_GZ
@@ -29,3 +36,6 @@ RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft
 
 #https://wiki.ubuntu.com/DashAsBinSh
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+USER developer
+ENV HOME /home/developer
+CMD /usr/bin/fsl
