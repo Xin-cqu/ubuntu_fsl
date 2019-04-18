@@ -1,4 +1,4 @@
-FROM ubuntu18.04
+FROM ubuntu:xenial
 MAINTAINER Xin Wen <nclxwen@gmail.com>
 
 RUN apt-get update && apt-get install -y wget jq vim python x11vnc xvfb
