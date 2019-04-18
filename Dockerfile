@@ -1,10 +1,17 @@
 FROM ubuntu18.04
 MAINTAINER Xin Wen <nclxwen@gmail.com>
 
-RUN apt-get update && apt-get install -y wget jq vim python
+RUN apt-get update && apt-get install -y wget jq vim python x11vnc xvfb
 #install neurodebian
 RUN wget -O- http://neuro.debian.net/lists/xenial.us-tn.full | tee /etc/apt/sources.list.d/neurodebian.sources.list
 RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
+# Install vnc, xvfb in order to create a 'fake' display and fsl
+RUN mkdir ~/.vnc
+# Setup a password
+RUN x11vnc -storepasswd 1234 ~/.vnc/passwd
+# Autostart firefox (might not be the best way to do it, but it does the trick)
+RUN bash -c 'echo "fsl" >> /.bashrc'
+
 
 #install fsl
 RUN apt-get update && apt-get install -y fsl
