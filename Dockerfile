@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-runtime
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 MAINTAINER Xin Wen <nclxwen@gmail.com>
 # Run everything in /root
 WORKDIR /root
@@ -27,18 +27,3 @@ ENV FSLREMOTECALL=
 ENV PATH=${FSLDIR}/bin:${PATH}
 ENV export FSLDIR PATH
 RUN ldconfig
-
-RUN export uid=xwen gid=xwen && \
-    mkdir -p /home/developer && \
-    echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
-    echo "developer:x:${uid}:" >> /etc/group && \
-    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
-    chmod 0440 /etc/sudoers.d/developer && \
-    chown ${uid}:${gid} -R /home/developer
-
-
-#https://wiki.ubuntu.com/DashAsBinSh
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-USER developer
-ENV HOME /home/developer
-CMD /usr/bin/fsl
