@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:18.04
 MAINTAINER Xin Wen <nclxwen@gmail.com>
 # Run everything in /root
 WORKDIR /root
