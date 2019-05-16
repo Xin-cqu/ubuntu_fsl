@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:14.04
 MAINTAINER Xin Wen <nclxwen@gmail.com>
 # Run everything in /root
 WORKDIR /root
