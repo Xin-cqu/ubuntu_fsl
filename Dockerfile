@@ -4,13 +4,13 @@ MAINTAINER Xin Wen <nclxwen@gmail.com>
 WORKDIR /root
 
 RUN yum -y update && yum clean all; \
-	yum -y install curl libxcb1 libomp-dev libopenblas-dev bzip2 libx11-6
+	yum -y install curl libxcb1 libomp-dev libopenblas-dev bzip2 libx11-6 python2.7
 
 # Get the FSL Install Script
 RUN curl -O -L https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py
 
 # Install FSL
-RUN python fslinstaller.py -d /usr/local/fsl -V 6.0.1
+RUN python2.7 fslinstaller.py -d /usr/local/fsl -V 6.0.1
 
 # Setup Shell environment for FSL
 ENV FSLDIR=/usr/local/fsl
