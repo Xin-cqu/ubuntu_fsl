@@ -1,10 +1,10 @@
-FROM centos:latest
+FROM ubuntu:18.04
 MAINTAINER Xin Wen <nclxwen@gmail.com>
 # Run everything in /root
 WORKDIR /root
 
-RUN yum -y update && yum clean all; \
-	yum -y install curl libxcb1 libomp-dev libopenblas-dev bzip2 libx11-6 python2.7
+RUN apt-get -y update; \
+	apt-get -y install curl libxcb1 libomp-dev libopenblas-dev bzip2 libx11-6 python2.7
 
 # Get the FSL Install Script
 RUN curl -O -L https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py
