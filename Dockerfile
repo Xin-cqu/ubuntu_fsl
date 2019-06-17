@@ -10,7 +10,7 @@ RUN yum -y update && yum clean all; \
 RUN curl -O -L https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py
 
 # Install FSL
-RUN python2.7 fslinstaller.py -d /usr/local/fsl -V 6.0.1
+RUN python fslinstaller.py -d /usr/local/fsl -V 6.0.1
 
 # Setup Shell environment for FSL
 ENV FSLDIR=/usr/local/fsl
